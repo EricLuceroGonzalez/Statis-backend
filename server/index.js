@@ -24,9 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const Muestra = require("../models/Muestra");
 
 // -------------   CRUD  -----------------
-app.get("/", (req, res) => {
-  res.send("Hello World!!!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World!!!");
+// });
 
 // //get all Ligas by id
 // app.get("/api/liga", function(req, res) {
