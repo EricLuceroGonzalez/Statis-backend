@@ -14,7 +14,7 @@ var dotenv = require("dotenv");
 dotenv.config();
 
 const corsOptions = {
-  origin: "https://your-app-name.herokuapp.com",
+  origin: "https://statis-backend.herokuapp.com",
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
