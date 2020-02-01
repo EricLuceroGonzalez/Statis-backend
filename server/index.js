@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 // import CORS
 const cors = require("cors");
-// Use CORS
-app.use(cors());
 
 // Check port
 const port = process.env.PORT || 8000;
@@ -16,15 +14,20 @@ var dotenv = require("dotenv");
 dotenv.config();
 
 
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Request headers you wish to allow
+  // res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');
+ res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  // Pass to next layer of middleware
   next();
 });
 
+// Use CORS
+app.use(cors());
 
 // ----------- BODY PARSER  ---------------
 var bodyParser = require("body-parser"); // for parsing application/json
@@ -51,7 +54,7 @@ const Muestra = require("../models/Muestra");
 //   });
 
 //obtener todos los players
-app.get("/api/Data/", (req, res) => {
+app.get("/api/Data", (req, res) => {
   Muestra.find()
     .exec()
     .then(data => res.status(200).send(data))
@@ -59,7 +62,7 @@ app.get("/api/Data/", (req, res) => {
 });
 
 // //  C: CREATE ------------
-app.post("/api/muestra/", (req, res) => {
+app.post("/api/muestra", (req, res) => {
   //   // Recibir el jugador
   //   console.log(req.body);
 
