@@ -40,7 +40,7 @@ const Muestra = require("../models/Muestra");
 //   });
 
 //obtener todos los players
-app.get("/api/muestras/", (req, res) => {
+app.get("/api/Data/", (req, res) => {
   Muestra.find()
     .exec()
     .then(data => res.status(200).send(data))
@@ -48,7 +48,7 @@ app.get("/api/muestras/", (req, res) => {
 });
 
 // //  C: CREATE ------------
-app.post("/api/muestra", (req, res) => {
+app.post("/api/muestra/", (req, res) => {
   //   // Recibir el jugador
   //   console.log(req.body);
 
