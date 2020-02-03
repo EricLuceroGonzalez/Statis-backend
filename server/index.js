@@ -13,15 +13,15 @@ const port = process.env.PORT || 8000;
 var dotenv = require("dotenv");
 dotenv.config();
 
-const corsOptions = {
-  origin: "https://statistik-a.herokuapp.com",
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: "https://statistik-a.herokuapp.com",
+//   optionsSuccessStatus: 200
+// };
+// app.use(cors(corsOptions));
 app.options("*", cors());
 
 // Use CORS
-// app.use(cors());
+app.use(cors());
 
 // ----------- BODY PARSER  ---------------
 var bodyParser = require("body-parser"); // for parsing application/json
