@@ -55,6 +55,20 @@ app.get("/api/Data", (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
+//obtener todos los players
+app.get("/api/chartData", (req, res) => {
+  Muestra.find()
+    .exec()
+    .then(data => {
+      const dbEstatura = data.map(items => items.estatura);
+      const dbPeso = data.map(items => items.peso);
+      const dbIMC = data.map(items => items.imc);
+      dbData = { estatura: dbEstatura, peso: dbPeso };
+      res.status(200).send(dbData);
+    })
+    .catch(err => res.status(400).send(err));
+});
+
 // //  C: CREATE ------------
 app.post("/api/muestra", (req, res) => {
   //   // Recibir el jugador
