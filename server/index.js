@@ -90,7 +90,7 @@ app.post("/api/muestra", (req, res) => {
   const nuevaEncuesta = new Muestra(req.body);
   nuevaEncuesta.save((err, nuevaEncuesta) => {
     // send mail with defined transport object
-    let info = transporter.sendMail({
+    transporter.sendMail({
       from: process.env.mailUser, // sender address
       to: "ericlucero501@gmail.com", // list of receivers
       subject: "Nueva entrada de datos", // Subject line
