@@ -28,8 +28,20 @@ var bodyParser = require("body-parser"); // for parsing application/json
 app.use(bodyParser.json()); // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Import nodemailer
+var nodemailer = require("nodemailer");
+
 // Require Schema's
 const Muestra = require("../models/Muestra");
+
+// Define transporter to login to mail sender account
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.mailUser,
+    pass: process.env.mailPass
+  }
+});
 
 // -------------   CRUD  -----------------
 // app.get("/", (req, res) => {
@@ -77,6 +89,14 @@ app.post("/api/muestra", (req, res) => {
   //   // Guardar en db
   const nuevaEncuesta = new Muestra(req.body);
   nuevaEncuesta.save((err, nuevaEncuesta) => {
+    // send mail with defined transport object
+    let info = transporter.sendMail({
+      from: process.env.mailUser, // sender address
+      to: "ericlucero501@gmail.com", // list of receivers
+      subject: "Nueva entrada de datos", // Subject line
+      html: `<div>Edad: ${nuevaEncuesta.edad}, IMC: ${nuevaEncuesta.imc}</div>` // html body
+    });
+
     return err
       ? res.status(400).send({ mensaje: "Error en envio", res: err })
       : res
