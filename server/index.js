@@ -63,7 +63,9 @@ var transporter = nodemailer.createTransport({
 app.get("/api/Data", (req, res) => {
   Muestra.find()
     .exec()
-    .then(data => res.status(200).send(data))
+    .then(data => {
+      res.status(200).send(data);
+    })
     .catch(err => res.status(400).send(err));
 });
 
@@ -88,21 +90,20 @@ app.post("/api/muestra", (req, res) => {
 
   //   // Guardar en db
   const nuevaEncuesta = new Muestra(req.body);
-  nuevaEncuesta.save((err, nuevaEncuesta) => {
-    // send mail with defined transport object
-    transporter.sendMail({
-      from: process.env.mailUser, // sender address
-      to: "ericlucero501@gmail.com", // list of receivers
-      subject: "Nueva entrada de datos", // Subject line
-      html: `<div>Edad: ${nuevaEncuesta.edad}, IMC: ${nuevaEncuesta.imc}</div>` // html body
-    });
-
-    return err
-      ? res.status(400).send({ mensaje: "Error en envio", res: err })
-      : res
-          .status(200)
-          .send({ mensaje: "Encuesta exitosa", res: nuevaEncuesta });
-  });
+  nuevaEncuesta
+    .save(nuevaEncuesta)
+    .then(sended => {
+      res.status(200).send({ mensaje: "Encuesta exitosa", res: sended });
+      transporter.sendMail({
+        from: process.env.mailUser, // sender address
+        to: "ericlucero501@gmail.com", // list of receivers
+        subject: `(${sended.length}) Nueva entrada de datos`, // Subject line
+        html: `<p>Hello Eric. Ahora tienes una entrada nueva</p>` // html body
+      });
+    })
+    .catch(err =>
+      res.status(400).send({ mensaje: "Error en envio", res: err })
+    );
 });
 
 // // ---------- POST
