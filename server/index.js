@@ -86,26 +86,24 @@ app.get("/api/chartData", (req, res) => {
 // //  C: CREATE ------------
 app.post("/api/muestra", (req, res) => {
   //   // Recibir el jugador
-  //   console.log(req.body);
+    console.log(req.body);
 
-  for (let i = 0; i < req.body.length; i++) {
-    //   // Guardar en db
-    const nuevaEncuesta = new Muestra(req.body[i]);
-    nuevaEncuesta
-      .save(nuevaEncuesta)
-      .then(sended => {
-        res.status(200).send({ mensaje: "Encuesta exitosa", res: sended });
-        transporter.sendMail({
-          from: process.env.mailUser, // sender address
-          to: "ericlucero501@gmail.com", // list of receivers
-          subject: `(${sended.length}) Nueva entrada de datos`, // Subject line
-          html: `<p>Hello Eric. Ahora tienes una entrada nueva</p>` // html body
-        });
-      })
-      .catch(err =>
-        res.status(400).send({ mensaje: "Error en envio", res: err })
-      );
-  }
+  //   // Guardar en db
+  const nuevaEncuesta = new Muestra(req.body);
+  nuevaEncuesta
+    .save(nuevaEncuesta)
+    .then(sended => {
+      res.status(200).send({ mensaje: "Encuesta exitosa", res: sended });
+      transporter.sendMail({
+        from: process.env.mailUser, // sender address
+        to: "ericlucero501@gmail.com", // list of receivers
+        subject: `(${sended.length}) Nueva entrada de datos`, // Subject line
+        html: `<p>Hello Eric. Ahora tienes una entrada nueva</p>` // html body
+      });
+    })
+    .catch(err =>
+      res.status(400).send({ mensaje: "Error en envio", res: err })
+    );
 });
 
 // // ---------- POST
