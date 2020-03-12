@@ -89,7 +89,7 @@ app.post("/api/muestra", (req, res) => {
   //   console.log(req.body);
 
   //   // Guardar en db
-  const nuevaEncuesta = new Muestra(req.body.data);
+  const nuevaEncuesta = new Muestra(req.body.somedata);
   nuevaEncuesta
     .save(nuevaEncuesta)
     .then(sended => {
