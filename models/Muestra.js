@@ -4,35 +4,35 @@ const Schema = mongoose.Schema; // Create Schema
 const MuestraSchema = new Schema({
   estatura: {
     type: Number,
-    required: true
+    required: false
   },
   peso: {
     type: Number,
-    required: true
+    required: false
   },
   imc: {
     type: Number,
-    required: true
+    required: false
   },
   edad: {
     type: Number,
-    required: true
+    required: false
   },
   sangre: {
     type: String,
-    required: true
+    required: false
   },
   genero: {
     type: String,
-    required: true
+    required: false
   },
   lateralidad: {
     type: String,
-    required: true
+    required: false
   },
   ejercita: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: Date,
