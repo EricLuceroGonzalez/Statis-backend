@@ -86,7 +86,7 @@ app.get("/api/chartData", (req, res) => {
 // //  C: CREATE ------------
 app.post("/api/muestra", (req, res) => {
   //   // Recibir el jugador
-    console.log(req.body);
+    console.log(req.body.somedata);
 
   //   // Guardar en db
   const nuevaEncuesta = new Muestra(req.body);
